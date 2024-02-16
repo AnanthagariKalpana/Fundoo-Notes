@@ -1,0 +1,11 @@
+.env
+node_modules/
+logs/
+*.log
+.vscode/
+.npmrc
+/yarn-error.log
+.pnp
+.pnp.js
+.DS_Store
+Thumbs.db
