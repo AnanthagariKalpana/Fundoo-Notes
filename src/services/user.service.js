@@ -31,3 +31,9 @@ export const loginUser = async (email, password)=>{
       throw error;
   }
 }
+
+//get single user
+export const getUser = async (mail) => {
+  const data = await User.find({email:mail});
+  return data;
+};

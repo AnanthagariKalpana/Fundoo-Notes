@@ -32,5 +32,18 @@ export const login=async (req,res)=>{
   {
     res.status(400).json({error:error.message});
   }
-}
+};
+
+export const getUser = async (req, res, next) => {
+  try {
+    const data = await UserService.getUser(req.params.email);
+    res.status(HttpStatus.OK).json({
+      code: HttpStatus.OK,
+      data: data,
+      message: 'User fetched successfully'
+    });
+  } catch (error) {
+    next(error);
+  }
+};
 
