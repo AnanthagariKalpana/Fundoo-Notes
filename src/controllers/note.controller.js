@@ -18,11 +18,24 @@ export const newNote = async (req, res, next) => {
 
   export const updateNote = async (req, res, next) => {
     try {
-      const data = await NoteService.updateNote(req.body);
+      const data = await NoteService.updateNote(req.body, req.params._id);
       res.status(HttpStatus.CREATED).json({
         code: HttpStatus.CREATED,
         data: data,
         message: 'Note updated successfully'
+      });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  export const getAll = async (req, res, next) => {
+    try {
+      const data = await NoteService.getAll(req.body);
+      res.status(HttpStatus.CREATED).json({
+        code: HttpStatus.CREATED,
+        data: data,
+        message: 'All notes fetched successfully'
       });
     } catch (error) {
       next(error);

@@ -6,6 +6,8 @@ const router=express.Router();
 //create a note
 router.post('/create',NoteController.newNote);
 //update the note
-router.post('/update',NoteController.updateNote);
+router.post('/:_id',NoteController.updateNote);
+//fetch all the notes
+router.get('/get',NoteController.getAll);
 
 export default router;
