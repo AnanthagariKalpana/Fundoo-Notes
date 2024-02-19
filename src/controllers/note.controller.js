@@ -15,3 +15,16 @@ export const newNote = async (req, res, next) => {
       next(error);
     }
   };
+
+  export const updateNote = async (req, res, next) => {
+    try {
+      const data = await NoteService.updateNote(req.body);
+      res.status(HttpStatus.CREATED).json({
+        code: HttpStatus.CREATED,
+        data: data,
+        message: 'Note updated successfully'
+      });
+    } catch (error) {
+      next(error);
+    }
+  };
