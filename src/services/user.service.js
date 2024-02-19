@@ -1,5 +1,6 @@
 import User from '../models/user.model';
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
 export const newUser = async (body) => {
   const existUser=await User.findOne({ email: body.email });
@@ -25,7 +26,9 @@ export const loginUser = async (email, password)=>{
       {
           throw new Error('Invalid password');
       }
-      return user;
+      
+      var token = jwt.sign({email:user.email}, process.env.SECRET_KEY);
+      return token;
   }
   catch(error){
       throw error;
@@ -34,6 +37,12 @@ export const loginUser = async (email, password)=>{
 
 //get single user
 export const getUser = async (mail) => {
-  const data = await User.find({email:mail});
-  return data;
+  const data = await User.findOne({email:mail});
+  return data; 
 };
+
+//get All user
+export const getAll = async ()=>{
+  const data=await User.find()
+  return data;
+}

@@ -12,6 +12,8 @@ router.post('/create', userController.newUser);
 router.post('/login',userController.login)
 //route to get single user
 router.get('/:email',userController.getUser);
+//route to get all User
+router.get('/',userController.getAll)
 
 
 
