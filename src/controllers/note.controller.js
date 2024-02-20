@@ -5,7 +5,7 @@ import * as NoteService from '../services/note.service'
 
 export const newNote = async (req, res, next) => {
     try {
-      const data = await NoteService.newNote(req.body);
+      const data = await NoteService.newNote(req.body,req.user.id);
       res.status(HttpStatus.CREATED).json({
         code: HttpStatus.CREATED,
         data: data,
@@ -18,7 +18,7 @@ export const newNote = async (req, res, next) => {
 
   export const updateNote = async (req, res, next) => {
     try {
-      const data = await NoteService.updateNote(req.body, req.params._id);
+      const data = await NoteService.updateNote(req.body, req.params._id,req.user.id);
       res.status(HttpStatus.CREATED).json({
         code: HttpStatus.CREATED,
         data: data,
@@ -31,7 +31,7 @@ export const newNote = async (req, res, next) => {
 
   export const getAll = async (req, res, next) => {
     try {
-      const data = await NoteService.getAll(req.body);
+      const data = await NoteService.getAll(req.body,req.user.id);
       res.status(HttpStatus.CREATED).json({
         code: HttpStatus.CREATED,
         data: data,
@@ -44,7 +44,7 @@ export const newNote = async (req, res, next) => {
 
   export const delNote = async (req, res, next) => {
     try {
-      const data = await NoteService.delNote(req.params._id);
+      const data = await NoteService.delNote(req.params._id,req.user.id);
       res.status(HttpStatus.CREATED).json({
         code: HttpStatus.CREATED,
         data: data,
@@ -58,7 +58,7 @@ export const newNote = async (req, res, next) => {
   export const archiveNote = async (req, res, next) => {
     try {
       const noteId=req.params._id;
-      const data = await NoteService.archiveNote(noteId);
+      const data = await NoteService.archiveNote(noteId,req.user.id);
       res.status(HttpStatus.CREATED).json({
         code: HttpStatus.CREATED,
         data: data,
@@ -72,7 +72,7 @@ export const newNote = async (req, res, next) => {
   export const trashNote = async (req, res, next) => {
     try {
       const noteId=req.params._id;
-      const data = await NoteService.trashNote(noteId);
+      const data = await NoteService.trashNote(noteId,req.user.id);
       res.status(HttpStatus.CREATED).json({
         code: HttpStatus.CREATED,
         data: data,

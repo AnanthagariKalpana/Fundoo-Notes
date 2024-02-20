@@ -18,20 +18,21 @@ export const updateNote = async (body, id) => {
 }
 
 //Get all the notes
-export const getAll = async () => {
-    const note = await Notes.find(userAuth.id)
+export const getAll = async (userId) => {
+    console.log(userId);
+    const note = await Notes.find(userId)
     return note;
 }
 
 //delete the Onenote
-export const delNote = async (id) => {
-    const data = await Notes.findByIdAndDelete(id,userAuth.id)
+export const delNote = async (id,userId) => {
+    const data = await Notes.findByIdAndDelete(id,userId)
     return data;
 }
 
 //ArchiveNote
 export const archiveNote = async (noteId) => {
-    const existNoteId = await Notes.findOne({ _id: noteId },userAuth.id)
+    const existNoteId = await Notes.findOne({ _id: noteId },userId)
     if (!existNoteId) {
         throw new Error('Note Not Found');
     }
