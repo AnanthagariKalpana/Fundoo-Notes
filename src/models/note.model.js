@@ -17,6 +17,11 @@ const noteSchema=new Schema(
         colour:{
             type:String
         },
+        userId:{
+            type:Schema.Types.ObjectId,
+            ref:"users",
+            required:true
+        },
         archive :{
             type : Boolean,
             default:false

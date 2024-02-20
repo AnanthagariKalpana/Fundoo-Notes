@@ -1,5 +1,6 @@
 import HttpStatus from 'http-status-codes';
 import * as NoteService from '../services/note.service'
+import { log } from 'winston';
 
 
 
@@ -31,7 +32,8 @@ export const newNote = async (req, res, next) => {
 
   export const getAll = async (req, res, next) => {
     try {
-      const data = await NoteService.getAll(req.body,req.user.id);
+      console.log(req.user.id)
+      const data = await NoteService.getAll(req.user.id);
       res.status(HttpStatus.CREATED).json({
         code: HttpStatus.CREATED,
         data: data,
@@ -85,7 +87,7 @@ export const newNote = async (req, res, next) => {
 
   export const getNote = async (req, res, next) => {
     try {
-      const data = await NoteService.getNote(req.params._id);
+      const data = await NoteService.getNote(req.params._id,req.user.id);
       res.status(HttpStatus.CREATED).json({
         code: HttpStatus.CREATED,
         data: data,
