@@ -8,7 +8,7 @@ export const newUser = async (body) => {
     throw new Error('User with this email already exist');
   }
   const hashedPassword = await bcrypt.hash(body.password, 10);
-  const data = await User.create({email: body.email,password:hashedPassword});
+  const data = await User.create({name:body.name,email: body.email,password:hashedPassword});
   return data;
 };
 
@@ -27,7 +27,7 @@ export const loginUser = async (email, password)=>{
           throw new Error('Invalid password');
       }
       
-      var token = jwt.sign({email:user.email}, process.env.SECRET_KEY);
+      var token = jwt.sign({id:user.id}, process.env.SECRET_KEY);
       return token;
   }
   catch(error){

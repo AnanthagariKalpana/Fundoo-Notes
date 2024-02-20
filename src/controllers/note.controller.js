@@ -41,3 +41,59 @@ export const newNote = async (req, res, next) => {
       next(error);
     }
   };
+
+  export const delNote = async (req, res, next) => {
+    try {
+      const data = await NoteService.delNote(req.params._id);
+      res.status(HttpStatus.CREATED).json({
+        code: HttpStatus.CREATED,
+        data: data,
+        message: 'note deleted successfully'
+      });
+    } catch (error) {
+      next(error);
+    }
+  };
+  
+  export const archiveNote = async (req, res, next) => {
+    try {
+      const noteId=req.params._id;
+      const data = await NoteService.archiveNote(noteId);
+      res.status(HttpStatus.CREATED).json({
+        code: HttpStatus.CREATED,
+        data: data,
+        message: 'Note has Archived successfully'
+      });
+    } catch (error) {
+      next(error);
+    }
+  };
+  
+  export const trashNote = async (req, res, next) => {
+    try {
+      const noteId=req.params._id;
+      const data = await NoteService.trashNote(noteId);
+      res.status(HttpStatus.CREATED).json({
+        code: HttpStatus.CREATED,
+        data: data,
+        message: 'Note has trashed successfully'
+      });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  export const getNote = async (req, res, next) => {
+    try {
+      const data = await NoteService.getNote(req.params._id);
+      res.status(HttpStatus.CREATED).json({
+        code: HttpStatus.CREATED,
+        data: data,
+        message: ' note fetched successfully'
+      });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+
