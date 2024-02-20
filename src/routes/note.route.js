@@ -11,7 +11,7 @@ router.put('/:_id',userAuth,NoteController.updateNote);
 //fetch all the notes
 router.get('',userAuth,NoteController.getAll);
 //Delete the note
-router.delete('/:_id',userAuth,NoteController.delNote);
+router.delete('/:_id',userAuth,NoteController.deleteNote);
 //Archive Note
 router.put('/:_id/archive',userAuth,NoteController.archiveNote);
 //Trash Note

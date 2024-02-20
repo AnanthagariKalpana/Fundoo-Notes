@@ -2,6 +2,8 @@ import { error } from '@hapi/joi/lib/base';
 import Notes from '../models/note.model';
 import { userAuth } from '../middlewares/auth.middleware';
 
+
+
 export const newNote = async (body,userId) => {
     const data = await Notes.create({...body,userId:userId});
     // console.log(data)
@@ -25,7 +27,7 @@ export const getAll = async (userId) => {
 }
 
 //delete the Onenote
-export const delNote = async (id,userId) => {
+export const deleteNote = async (id,userId) => {
     const data = await Notes.findByIdAndDelete({_id:id,userId:userId})
     return data;
 }

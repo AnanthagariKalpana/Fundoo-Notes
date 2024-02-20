@@ -44,9 +44,9 @@ export const newNote = async (req, res, next) => {
     }
   };
 
-  export const delNote = async (req, res, next) => {
+  export const deleteNote = async (req, res, next) => {
     try {
-      const data = await NoteService.delNote(req.params._id,req.user.id);
+      const data = await NoteService.deleteNote(req.params._id,req.user.id);
       res.status(HttpStatus.CREATED).json({
         code: HttpStatus.CREATED,
         data: data,
