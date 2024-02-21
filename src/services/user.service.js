@@ -35,7 +35,7 @@ export const loginUser = async (email, password)=>{
       throw error;
   }
 }
-
+//Sending the requestToken to the email to perform ForgotPassword
 export const forgotPassWord = async(mail)=>{
 
   const user=await User.findOne({email: mail})
@@ -50,7 +50,7 @@ export const forgotPassWord = async(mail)=>{
   return user;
 }
 
-
+//Performing the resetPassword 
 export const resetPassWord=async(userId,newpassWord)=>{
   try{
   const user=await User.findById(userId)
@@ -82,14 +82,4 @@ catch(error)
 
 
 
-//get single user
-export const getUser = async (mail) => {
-  const data = await User.findOne({email:mail});
-  return data; 
-};
 
-//get All user
-export const getAll = async ()=>{
-  const data=await User.find()
-  return data;
-}
