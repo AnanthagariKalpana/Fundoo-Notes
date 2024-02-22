@@ -5,7 +5,7 @@ import {userAuth} from "../middlewares/auth.middleware";
 const router=express.Router();
 
 //create a note
-router.post('/',userAuth,NoteController.newNote);
+router.post('',userAuth,NoteController.newNote);
 //update the note
 router.put('/:_id',userAuth,NoteController.updateNote);
 //fetch all the notes

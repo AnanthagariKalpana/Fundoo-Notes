@@ -5,7 +5,7 @@ import app from '../../src/index';
 import HttpStatus from 'http-status-codes';
 
 var token;
-
+var noteId;
 describe('User APIs Test', () => {
   before((done) => {
     const clearCollections = () => {
@@ -58,8 +58,7 @@ describe('User APIs Test', () => {
         .post('/api/v1/users/login')
         .send(user)
         .end((err, res) => {
-          token = res.body
-          console.log(token);
+          token = res.body.user;
           expect(res.statusCode).to.be.equal(HttpStatus.OK);
           // expect(res.body.data).to.be.an('array');
 
@@ -67,6 +66,35 @@ describe('User APIs Test', () => {
         });
     });
   });
+
+  
+  describe('Create Note', function() {
+    it('create a new Note', (done) => {
+      const note = {
+        "title": "First Note Testing",
+        "description": "FirstNote Test1",
+        "colour": "green"
+      };
+      
+      request(app)
+        .post('/api/v1/note')
+        .set('Authorization', `Bearer ${token}`)
+        .send(note)
+        .end((err, res) => {
+          console.log("Response:", res.statusCode, res.body.data._id);
+          noteId = res.body._id;
+          expect(res.statusCode).to.be.equal(HttpStatus.CREATED);
+          done();
+      });
+    });
+  });
+
+
+
+
+
+
+
 
 });
 
