@@ -1,8 +1,10 @@
 import { expect } from 'chai';
 import request from 'supertest';
 import mongoose from 'mongoose';
-
 import app from '../../src/index';
+import HttpStatus from 'http-status-codes';
+
+var token;
 
 describe('User APIs Test', () => {
   before((done) => {
@@ -26,16 +28,45 @@ describe('User APIs Test', () => {
     done();
   });
 
-  describe('GET /users', () => {
-    it('should return empty array', (done) => {
+  describe('POST /users', () => {
+    it('Create a new User', (done) => {
+      const user={
+        "name":"Sudheer",
+        "email":"sudheer@gmail",
+        "password":"sudheer123"
+      };
+
       request(app)
-        .get('/api/v1/users')
+        .post('/api/v1/users/')
+        .send(user)
         .end((err, res) => {
-          expect(res.statusCode).to.be.equal(200);
-          expect(res.body.data).to.be.an('array');
+          expect(res.statusCode).to.be.equal(HttpStatus.CREATED);
+          // expect(res.body.data).to.be.an('array');
 
           done();
         });
     });
   });
+
+  describe('Post /users/login',()=>{
+    it('user has login', (done) => {
+      const user={
+        "email":"sudheer@gmail",
+        "password":"sudheer123"
+      }
+      request(app)
+        .post('/api/v1/users/login')
+        .send(user)
+        .end((err, res) => {
+          token = res.body
+          console.log(token);
+          expect(res.statusCode).to.be.equal(HttpStatus.OK);
+          // expect(res.body.data).to.be.an('array');
+
+          done();
+        });
+    });
+  });
+
 });
+
