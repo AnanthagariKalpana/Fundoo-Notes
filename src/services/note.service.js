@@ -58,7 +58,7 @@ export const trashNote = async (noteId) => {
 }
 
 //get single Note
-export const getNote = async (_id,userId) => {
+export const getNoteById = async (_id,userId) => {
     const data = await Notes.findOne({_id:_id, userId:userId});
     return data;
   };

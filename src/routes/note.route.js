@@ -11,7 +11,7 @@ router.put('/:_id',userAuth,NoteController.updateNote);
 //fetch all the notes
 router.get('',userAuth,NoteController.getAll);
 //get SingleNote
-router.get('/:_id',userAuth,NoteController.getNote);
+router.get('/:_id',userAuth,NoteController.getNoteById);
 //Delete the note
 router.delete('/:_id',userAuth,NoteController.deleteNote);
 //Archive Note

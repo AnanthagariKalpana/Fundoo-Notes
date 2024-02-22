@@ -3,6 +3,7 @@ import request from 'supertest';
 import mongoose from 'mongoose';
 import app from '../../src/index';
 import HttpStatus from 'http-status-codes';
+import { note } from '@hapi/joi/lib/base';
 
 var token;
 var noteId;
@@ -82,19 +83,62 @@ describe('User APIs Test', () => {
         .send(note)
         .end((err, res) => {
           console.log("Response:", res.statusCode, res.body.data._id);
-          noteId = res.body._id;
+          noteId = res.body.data._id;
           expect(res.statusCode).to.be.equal(HttpStatus.CREATED);
           done();
       });
     });
   });
 
+  describe('Get All Notes', function() {
+    it('GetAllNote of the user', (done) => {
+      request(app)
+        .get('/api/v1/note')
+        .set('Authorization', `Bearer ${token}`)
+        .end((err, res) => {
+          //console.log("Response:", res.statusCode, res.body._id);
+          // noteId = res.body._id;
+          expect(res.statusCode).to.be.equal(HttpStatus.OK);
+          done();
+      });
+    });
+  });
 
+  describe('Get /note/byId', function() {
+    it('GetNoteById', (done) => {
+      
+      request(app)
+        .get(`/api/v1/note/${noteId}`)
+        .set('Authorization', `Bearer ${token}`)
+        .end((err, res) => {
+          console.log("Response:", res.statusCode, res.body.data._id);
+          //noteId = res.body.data._id;
+          expect(res.statusCode).to.be.equal(HttpStatus.OK);
+          done();
+      });
+    });
+  });
 
+  describe('Put/updateNote',()=>{
+    it('UpdateNote By id',(done)=>{
+      const updatedNote = {
+        "description":"Using testing updating note",
+      }
+      request(app)
+      .put(`/api/v1/note/${noteId}`)
+      .set('Authorization',`Bearer ${token}`)
+      .send(updatedNote)
+      .end((err, res) => {
+        console.log("Response:", res.statusCode, res.body.data._id);
+        //noteId = res.body.data._id;
+        expect(res.statusCode).to.be.equal(HttpStatus.CREATED);
+        done();
 
+    })
+  });
+});
 
 
 
 
 });
-

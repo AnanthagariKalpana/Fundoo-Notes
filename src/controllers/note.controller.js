@@ -34,7 +34,7 @@ export const newNote = async (req, res, next) => {
     try {
       console.log(req.user.id)
       const data = await NoteService.getAll(req.user.id);
-      res.status(HttpStatus.CREATED).json({
+      res.status(HttpStatus.OK).json({
         code: HttpStatus.CREATED,
         data: data,
         message: 'All notes fetched successfully'
@@ -85,11 +85,11 @@ export const newNote = async (req, res, next) => {
     }
   };
 
-  export const getNote = async (req, res, next) => {
+  export const getNoteById = async (req, res, next) => {
     try {
-      const data = await NoteService.getNote(req.params._id,req.user.id);
-      res.status(HttpStatus.CREATED).json({
-        code: HttpStatus.CREATED,
+      const data = await NoteService.getNoteById(req.params._id,req.user.id);
+      res.status(HttpStatus.OK).json({
+        code: HttpStatus.OK,
         data: data,
         message: ' note fetched successfully'
       });
