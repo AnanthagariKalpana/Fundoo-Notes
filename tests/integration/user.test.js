@@ -138,7 +138,49 @@ describe('User APIs Test', () => {
   });
 });
 
+describe('Put/ArchiveNote',()=>{
+  it('Archive Note',(done)=>{
+    request(app)
+    .put(`/api/v1/note/${noteId}/archive`)
+    .set('Authorization',`Bearer ${token}`)
+    .end((err, res) => {
+      //console.log("Response:", res.statusCode, res.body.data._id);
+      //noteId = res.body.data._id;
+      expect(res.statusCode).to.be.equal(HttpStatus.CREATED);
+      done();
 
+  });
+});
+});
 
+describe('Put/TrashNote',()=>{
+  it('Trash Note',(done)=>{
+    request(app)
+    .put(`/api/v1/note/${noteId}/trash`)
+    .set('Authorization',`Bearer ${token}`)
+    .end((err, res) => {
+      //console.log("Response:", res.statusCode, res.body.data._id);
+      //noteId = res.body.data._id;
+      expect(res.statusCode).to.be.equal(HttpStatus.CREATED);
+      done();
+
+  });
+});
+});
+
+describe('delete /note/byId', function() {
+  it('DeleteNoteById', (done) => {
+    
+    request(app)
+      .delete(`/api/v1/note/${noteId}`)
+      .set('Authorization', `Bearer ${token}`)
+      .end((err, res) => {
+        console.log("Response:", res.statusCode, res.body.data._id);
+        //noteId = res.body.data._id;
+        expect(res.statusCode).to.be.equal(HttpStatus.OK);
+        done();
+    });
+  });
+});
 
 });

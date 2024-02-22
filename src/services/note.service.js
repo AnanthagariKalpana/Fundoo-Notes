@@ -33,24 +33,24 @@ export const deleteNote = async (id,userId) => {
 }
 
 //ArchiveNote
-export const archiveNote = async (noteId) => {
-    const existNoteId = await Notes.findOne({ _id: noteId },{userId:userId})
+export const archiveNote = async (noteId,userId) => {
+    const existNoteId = await Notes.findOne({ _id: noteId ,userId})
     if (!existNoteId) {
         throw new Error('Note Not Found');
     }
-    const updateNote = await Notes.findOneAndUpdate((noteId),{userId:userId},
+    const updateNote = await Notes.findOneAndUpdate({ _id: noteId ,userId},
         { $set: { archive: !existNoteId.archive } },
         { new: true })
 
     return updateNote;
 }
 //trashNote
-export const trashNote = async (noteId) => {
-    const existNoteId = await Notes.findOne({ _id: noteId },{userId:userId})
+export const trashNote = async (noteId,userId) => {
+    const existNoteId = await Notes.findOne({ _id: noteId ,userId})
     if (!existNoteId) {
         throw new Error('Note Not Found');
     }
-    const updateNote = await Notes.findOneAndUpdate((noteId),{userId:userId},
+    const updateNote = await Notes.findOneAndUpdate({ _id: noteId ,userId},
         { $set: { trash: !existNoteId.trash } }
         , { new: true })
 
