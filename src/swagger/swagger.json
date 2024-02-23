@@ -1,0 +1,70 @@
+{
+    "openapi":"3.0.0",
+    "info":{
+        "title": "FundooNote API",
+      "version": "1.0.0",
+      "description": "API documentation for your Node.js application" 
+    },
+    "host":"localhost:3000",
+    "basepath":"/api/v1",
+    "schemes":["http"],
+    "consumes":["application/json"],
+    "produces":["application/json"],
+    "securityDefinition":{
+        "BearerAuth":{
+            "type":"apikey",
+            "name":"Authorization",
+            "in":"header",
+            "description":"Enter Bearer Token"
+        }
+    },
+    "components":{
+        "schemas":{
+            "users":{
+                "type":"object",
+                "required":["name","email","password"],
+                "properties":{
+                    "name":{
+                        "type":"String"
+                    },
+                    "email":{
+                        "type":"String"
+                    },
+                    "password":{
+                        "type":"String"
+                    }
+                }
+            },
+            "Note":{
+                "type":"object",
+                "required":["title","description"],
+                "properties":{
+                    "title":{
+                        "type":"String"
+                    },
+                    "description":{
+                        "type":"String"
+                    },
+                    "colour":{
+                        "type":"String"
+                    }
+                }
+            },
+            "ErrorResponse":{
+                "type":"object",
+                "properties":{
+                    "error":{
+                        "type":"String"
+                    }
+                }
+            }
+        },
+        "securitySchemes":{
+            "BearerAuth":{
+                "type":"http",
+                "scheme":"bearer",
+                "bearerFormat":"JWT"
+            }
+        }
+    }
+}
