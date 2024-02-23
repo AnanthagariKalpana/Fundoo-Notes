@@ -5,7 +5,7 @@ export const userAuth = async (req, res, next) => {
   try {
     let bearerToken = req.header('Authorization');
     bearerToken= bearerToken.split(" ");
-    console.log(bearerToken);
+    console.log(bearerToken[1]);
     if (!bearerToken)
       throw {
         code: HttpStatus.BAD_REQUEST,
