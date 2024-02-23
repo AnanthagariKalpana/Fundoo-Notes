@@ -3,7 +3,7 @@ import request from 'supertest';
 import mongoose from 'mongoose';
 import app from '../../src/index';
 import HttpStatus from 'http-status-codes';
-import { note } from '@hapi/joi/lib/base';
+
 
 var token;
 var noteId;
