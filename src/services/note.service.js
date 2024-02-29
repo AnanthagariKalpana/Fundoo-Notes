@@ -5,9 +5,12 @@ import { client } from '../config/redis';
 
 
 
-export const newNote = async (body,userId) => {
-    const data = await Notes.create({...body,userId:userId});
+export const newNote = async (body) => {
+    console.log(body);
+    const data = await Notes.create(body);
     // console.log(data)
+     const key=body.userId;
+    await client.del(key,JSON.stringify(data));
     return data;
 }
 
@@ -22,7 +25,6 @@ export const updateNote = async (body, id,userId) => {
 
 //Get all the notes
 export const getAll = async (userId) => {
-    console.log(userId);
     
     const note = await Notes.find({userId:userId})
     //getting the notes from Redis Database
@@ -34,6 +36,9 @@ export const getAll = async (userId) => {
 //delete the Onenote
 export const deleteNote = async (id,userId) => {
     const data = await Notes.findByIdAndDelete({_id:id,userId:userId})
+    const keyId=_id;
+    const key=userId;
+    await client.del(keyId,key,JSON.stringify(data));
     return data;
 }
 

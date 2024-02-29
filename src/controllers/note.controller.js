@@ -6,7 +6,8 @@ import { log } from 'winston';
 
 export const newNote = async (req, res, next) => {
     try {
-      const data = await NoteService.newNote(req.body,req.user.id);
+      console.log(req.body);
+      const data = await NoteService.newNote(req.body);
       res.status(HttpStatus.CREATED).json({
         code: HttpStatus.CREATED,
         data: data,
@@ -32,7 +33,7 @@ export const newNote = async (req, res, next) => {
 
   export const getAll = async (req, res, next) => {
     try {
-      const data = await NoteService.getAll(req.body);
+      const data = await NoteService.getAll(req.body.userId);
       res.status(HttpStatus.OK).json({
         code: HttpStatus.CREATED,
         data: data,
@@ -86,7 +87,7 @@ export const newNote = async (req, res, next) => {
 
   export const getNoteById = async (req, res, next) => {
     try {
-      const data = await NoteService.getNoteById(req.params._id,req.user.id);
+      const data = await NoteService.getNoteById(req.params._id,req.body.userId);
       res.status(HttpStatus.OK).json({
         code: HttpStatus.OK,
         data: data,

@@ -1,7 +1,7 @@
 import  express from "express";
 import * as NoteController from '../controllers/note.controller';
 import {userAuth} from "../middlewares/auth.middleware";
-import getAllNotes  from "../middlewares/redis.middleware";
+import CachegetAllNotes  from "../middlewares/redis.middleware";
 
 
 const router=express.Router();
@@ -11,7 +11,7 @@ router.post('',userAuth,NoteController.newNote);
 //update the note
 router.put('/:_id',userAuth,NoteController.updateNote);
 //fetch all the notes
-router.get('',userAuth,getAllNotes,NoteController.getAll);
+router.get('',userAuth,CachegetAllNotes,NoteController.getAll);
 //get SingleNote
 router.get('/:_id',userAuth,NoteController.getNoteById);
 //Delete the note

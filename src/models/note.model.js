@@ -18,9 +18,7 @@ const noteSchema=new Schema(
             type:String
         },
         userId:{
-            type:Schema.Types.ObjectId,
-            ref:"users",
-            required:true
+            type:String,
         },
         archive :{
             type : Boolean,
