@@ -31,6 +31,7 @@ app.use(morgan('combined', { stream: logStream }));
 app.use('/api-docs',swaggerUi.serve,swaggerUi.setup(swaggerDocument));
 database();
 
+
 app.use(`/api/${api_version}`, routes());
 app.use(appErrorHandler);
 app.use(genericErrorHandler);

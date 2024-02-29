@@ -2,12 +2,7 @@ import HttpStatus from 'http-status-codes';
 import * as UserService from '../services/user.service';
 
 
-/**
- * Controller to create a new user
- * @param  {object} req - request object
- * @param {object} res - response object
- * @param {Function} next
- */
+
 export const singUp = async (req, res, next) => {
   try {
     const data = await UserService.singUp(req.body);
