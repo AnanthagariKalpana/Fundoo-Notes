@@ -1,6 +1,7 @@
 import { error } from '@hapi/joi/lib/base';
 import Notes from '../models/note.model';
-import { userAuth } from '../middlewares/auth.middleware';
+import { client } from '../config/redis';
+
 
 
 
@@ -21,8 +22,12 @@ export const updateNote = async (body, id,userId) => {
 
 //Get all the notes
 export const getAll = async (userId) => {
+    console.log(userId);
     
     const note = await Notes.find({userId:userId})
+    //getting the notes from Redis Database
+    const key=userId;
+    await client.set(key,JSON.stringify(note));
     return note;
 }
 

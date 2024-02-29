@@ -32,8 +32,7 @@ export const newNote = async (req, res, next) => {
 
   export const getAll = async (req, res, next) => {
     try {
-      console.log(req.user.id)
-      const data = await NoteService.getAll(req.user.id);
+      const data = await NoteService.getAll(req.body);
       res.status(HttpStatus.OK).json({
         code: HttpStatus.CREATED,
         data: data,
