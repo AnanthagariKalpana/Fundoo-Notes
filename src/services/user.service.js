@@ -2,6 +2,8 @@ import User from '../models/user.model';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import * as util from '../utils/user.util'
+// import { connectAndSend } from '../utils/producers';
+const {connectAndSend } = require("../utils/producers")
 
 export const singUp = async (body) => {
   const existUser=await User.findOne({ email: body.email });
@@ -28,7 +30,9 @@ export const loginUser = async (email, password)=>{
           throw new Error('Invalid password');
       }
       
+      connectAndSend(user.email);
       var token = jwt.sign({id:user.id}, process.env.SECRET_KEY);
+
       return token;
   }
   catch(error){

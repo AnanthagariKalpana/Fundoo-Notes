@@ -32,8 +32,9 @@ app.use(express.json());
 app.use(morgan('combined', { stream: logStream }));
 app.use('/api-docs',swaggerUi.serve,swaggerUi.setup(swaggerDocument));
 
-redis();
+
 database();
+redis();
 
 
 app.use(`/api/${api_version}`, routes());
