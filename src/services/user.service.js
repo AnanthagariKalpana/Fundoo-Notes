@@ -18,6 +18,7 @@ export const singUp = async (body) => {
 
 export const loginUser = async (email, password)=>{
   try{
+    console.log(email);
       const user = await User.findOne({email});
 
       if(!user){
@@ -29,10 +30,10 @@ export const loginUser = async (email, password)=>{
       {
           throw new Error('Invalid password');
       }
-      
+      //By using RabbitMQ We are sending the msg to the User
       connectAndSend(user.email);
       var token = jwt.sign({id:user.id}, process.env.SECRET_KEY);
-
+      console.log(token);
       return token;
   }
   catch(error){

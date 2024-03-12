@@ -6,7 +6,7 @@ import { log } from 'winston';
 
 export const newNote = async (req, res, next) => {
     try {
-      console.log(req.body);
+      // console.log(req.body);
       const data = await NoteService.newNote(req.body);
       res.status(HttpStatus.CREATED).json({
         code: HttpStatus.CREATED,
@@ -20,7 +20,7 @@ export const newNote = async (req, res, next) => {
 
   export const updateNote = async (req, res, next) => {
     try {
-      const data = await NoteService.updateNote(req.body, req.params._id,req.user.id);
+      const data = await NoteService.updateNote(req.body, req.params._id, req.body.userId);
       res.status(HttpStatus.CREATED).json({
         code: HttpStatus.CREATED,
         data: data,
@@ -46,7 +46,7 @@ export const newNote = async (req, res, next) => {
 
   export const deleteNote = async (req, res, next) => {
     try {
-      const data = await NoteService.deleteNote(req.params._id,req.user.id);
+      const data = await NoteService.deleteNote(req.params._id,req.body.userId);
       res.status(HttpStatus.OK).json({
         code: HttpStatus.CREATED,
         data: data,
@@ -60,7 +60,7 @@ export const newNote = async (req, res, next) => {
   export const archiveNote = async (req, res, next) => {
     try {
       const noteId=req.params._id;
-      const data = await NoteService.archiveNote(noteId,req.user.id);
+      const data = await NoteService.archiveNote(noteId,req.body.userId);
       res.status(HttpStatus.CREATED).json({
         code: HttpStatus.CREATED,
         data: data,
@@ -74,7 +74,7 @@ export const newNote = async (req, res, next) => {
   export const trashNote = async (req, res, next) => {
     try {
       const noteId=req.params._id;
-      const data = await NoteService.trashNote(noteId,req.user.id);
+      const data = await NoteService.trashNote(noteId,req.body.userId);
       res.status(HttpStatus.CREATED).json({
         code: HttpStatus.CREATED,
         data: data,

@@ -8,59 +8,68 @@ import { client } from '../config/redis';
 export const newNote = async (body) => {
     console.log(body);
     const data = await Notes.create(body);
-    // console.log(data)
-     const key=body.userId;
-    await client.del(key,JSON.stringify(data));
+    console.log(data)
+    //  const key=body.userId;
+    // await client.del(key,JSON.stringify(data));
     return data;
 }
 
-export const updateNote = async (body, id,userId) => {
-    let data = await Notes.findOneAndUpdate({ _id: id,userId,userId }, body, { new: true })
+export const updateNote = async (body, id) => {
+    console.log(body);
+    const data = await Notes.findOneAndUpdate(
+        {
+            _id: id,
+        }
+        , body, {
+        new: true
+    }
+    );
     if (!data) {
         throw new error("Not found")
     }
+    console.log(data);
     return data;
 
 }
 
 //Get all the notes
 export const getAll = async (userId) => {
-    
-    const note = await Notes.find({userId:userId})
+
+    const note = await Notes.find({ userId: userId })
     //getting the notes from Redis Database
-    const key=userId;
-    await client.set(key,JSON.stringify(note));
+    const key = userId;
+    // await client.set(key,JSON.stringify(note));
     return note;
 }
 
 //delete the Onenote
-export const deleteNote = async (id,userId) => {
-    const data = await Notes.findByIdAndDelete({_id:id,userId:userId})
-    const keyId=_id;
-    const key=userId;
-    await client.del(keyId,key,JSON.stringify(data));
+export const deleteNote = async (id, userId) => {
+    const data = await Notes.findByIdAndDelete({ _id: id, userId: userId })
+    // const keyId=_id;
+    // const key=userId;
+    // await client.del(keyId,key,JSON.stringify(data));
     return data;
 }
 
 //ArchiveNote
-export const archiveNote = async (noteId,userId) => {
-    const existNoteId = await Notes.findOne({ _id: noteId ,userId})
+export const archiveNote = async (noteId, userId) => {
+    const existNoteId = await Notes.findOne({ _id: noteId, userId })
     if (!existNoteId) {
         throw new Error('Note Not Found');
     }
-    const updateNote = await Notes.findOneAndUpdate({ _id: noteId ,userId},
+    const updateNote = await Notes.findOneAndUpdate({ _id: noteId, userId },
         { $set: { archive: !existNoteId.archive } },
         { new: true })
 
     return updateNote;
 }
 //trashNote
-export const trashNote = async (noteId,userId) => {
-    const existNoteId = await Notes.findOne({ _id: noteId ,userId})
+export const trashNote = async (noteId, userId) => {
+    const existNoteId = await Notes.findOne({ _id: noteId, userId })
     if (!existNoteId) {
         throw new Error('Note Not Found');
     }
-    const updateNote = await Notes.findOneAndUpdate({ _id: noteId ,userId},
+    const updateNote = await Notes.findOneAndUpdate({ _id: noteId, userId },
         { $set: { trash: !existNoteId.trash } }
         , { new: true })
 
@@ -68,7 +77,7 @@ export const trashNote = async (noteId,userId) => {
 }
 
 //get single Note
-export const getNoteById = async (_id,userId) => {
-    const data = await Notes.findOne({_id:_id, userId:userId});
+export const getNoteById = async (_id, userId) => {
+    const data = await Notes.findOne({ _id: _id, userId: userId });
     return data;
-  };
+};

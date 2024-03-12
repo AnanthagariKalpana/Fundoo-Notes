@@ -18,7 +18,6 @@ export const singUp = async (req, res, next) => {
 
 export const login=async (req,res)=>{
   try{
-    
     const{email,password}=req.body;
 
     const user=await UserService.loginUser(email,password);
